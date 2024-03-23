@@ -313,3 +313,8 @@ wwwroot/
 *.rej
 *~
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,rider
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal

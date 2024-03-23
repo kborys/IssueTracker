@@ -1,22 +1,14 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using IssueTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IssueTracker.Web.Controllers;
 
+[AllowAnonymous]
 public class HomeController : Controller
 {
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Login()
-    {
-        return View();
-    }
-
-    public IActionResult Register()
     {
         return View();
     }

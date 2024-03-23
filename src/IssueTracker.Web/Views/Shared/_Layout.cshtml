@@ -1,6 +1,9 @@
 ﻿@{
   ViewData["Title"] = "Issue Tracker";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +17,9 @@
 <div class="h-screen flex flex-col">
   <header class="bg-gray-900">
     <nav>
-      <div class="flex flex-wrap justify-between items-center mx-auto p-3">
+      <div class="flex flex-wrap justify-between items-center mx-auto px-6 py-3">
 
+        @* Left navbar *@
         <ul id="nav-primary" class="flex items-center space-x-6">
           <li>
             <a asp-controller="Home" asp-action="Index" class="flex items-center space-x-3">
@@ -24,27 +28,45 @@
             </a>
           </li>
           <li>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm text-white">Dashboard</a>
+            <a asp-controller="Home" asp-action="Index" class="text-sm text-white">Dashboard</a>
           </li>
-          <li>
-            <div class="text-sm text-white flex flex-wrap">
-              <span class="self-center">Projects</span>
-              <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
-          </li>
+          @if (SignInManager.IsSignedIn(User))
+          {
+            <li>
+              <div class="text-sm text-white flex flex-wrap">
+                <span class="self-center">Projects</span>
+                <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z"/>
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+            </li>
+          }
         </ul>
 
+        @* Right navbar *@
         <ul id="nav-secondary" class="flex items-center space-x-6">
-          <li>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm text-white">Login</a>
-          </li>
-          <li>
-            <a asp-area="" asp-controller="Home" asp-action="Register" class="text-sm text-white">Register</a>
-          </li>
+
+          @if (SignInManager.IsSignedIn(User))
+          {
+            <li>
+              <a asp-controller="Home" asp-action="Index" class="text-sm text-white">My account</a>
+            </li>
+            <li>
+              <a asp-controller="Account" asp-action="Logout" class="text-sm text-white">Logout</a>
+            </li>
+          }
+          else
+          {
+            <li>
+              <a asp-controller="Account" asp-action="Login" class="text-sm text-white">Login</a>
+            </li>
+            <li>
+              <a asp-controller="Account" asp-action="Register" class="text-sm text-white">Register</a>
+            </li>
+          }
         </ul>
+
       </div>
     </nav>
   </header>
