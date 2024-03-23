@@ -1,0 +1,48 @@
+﻿<section class="relative top-1/2 -translate-y-1/2">
+  <div class="max-w-2xl mx-auto p-5 md:border-2 md:rounded-xl md:shadow">
+
+    @* Welcome Header *@
+    <div>
+      <h1>Welcome back to IssueTracker</h1>
+      <p>Log in!</p>
+    </div>
+
+    @* Email *@
+    <div class="">
+      <label
+        for="emailInput"
+        class="">
+        Email
+      </label>
+      <input
+        type="text"
+        class=""
+        id="emailInput"
+        placeholder="example@email.com"/>
+    </div>
+
+    @* Password *@
+    <div class="">
+      <label
+        for="passwordInput"
+        class="">
+        Password
+      </label>
+      <input
+        type="password"
+        class=""
+        id="passwordInput"
+        placeholder="password"/>
+    </div>
+
+    <button>Login</button>
+
+    <hr>
+    <p>
+      Don't have an account?
+      <span class="font-semibold">
+        <a asp-controller="Home" asp-action="Register">Register</a>
+      </span>
+    </p>
+  </div>
+</section>

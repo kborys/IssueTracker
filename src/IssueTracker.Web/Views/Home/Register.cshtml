@@ -1,0 +1,88 @@
+﻿<section class="relative top-1/2 -translate-y-1/2">
+  <div class="max-w-2xl mx-auto p-5 md:border-2 md:rounded-xl md:shadow">
+
+    @* WelcomeHeader *@
+    <div>
+      <h1>Join IssueTracker</h1>
+      <p>Create an account!</p>
+    </div>
+
+    @* Email *@
+    <div class="">
+      <label
+        for="emailInput"
+        class="">
+        Email
+      </label>
+      <input
+        type="email"
+        class=""
+        id="emailInput"
+        placeholder="example@email.com"/>
+    </div>
+
+    @* Password *@
+    <div class="">
+      <label
+        for="passwordInput"
+        class="">
+        Password
+      </label>
+      <input
+        type="password"
+        class=""
+        id="passwordInput"
+        placeholder="password"/>
+    </div>
+
+    @* Confirm Password *@
+    <div class="">
+      <label
+        for="confirmPasswordInput"
+        class="">
+        Confirm
+      </label>
+      <input
+        type="password"
+        class=""
+        id="confirmPasswordInput"
+        placeholder="password"/>
+    </div>
+
+    @* FirstName *@
+    <div class="">
+      <label
+        for="firstNameInput"
+        class="">
+        First Name
+      </label>
+      <input
+        type="text"
+        class=""
+        id="firstNameInput"
+        placeholder=""/>
+    </div>
+
+    @* LastName *@
+    <div class="">
+      <label
+        for="firstNameInput"
+        class="">
+        Last Name
+      </label>
+      <input
+        type="text"
+        class=""
+        id="lastNameInput"
+        placeholder=""/>
+    </div>
+
+    <hr>
+    <p>
+      Already have an account?
+      <span class="font-semibold">
+        <a asp-controller="Home" asp-action="Login">Login</a>
+      </span>
+    </p>
+  </div>
+</section>
