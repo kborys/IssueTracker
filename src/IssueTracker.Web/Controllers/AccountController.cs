@@ -1,4 +1,5 @@
-﻿using IssueTracker.Web.Models.Account;
+﻿using FluentValidation;
+using IssueTracker.Web.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace IssueTracker.Web.Controllers;
 
 [AllowAnonymous]
-public class AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+public class AccountController(
+    SignInManager<IdentityUser> signInManager,
+    UserManager<IdentityUser> userManager)
     : Controller
 {
     public async Task<IActionResult> Login()
@@ -18,18 +21,18 @@ public class AccountController(SignInManager<IdentityUser> signInManager, UserMa
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginRequestModel requestModel, string? returnUrl = null)
+    public async Task<IActionResult> Login(LoginRequestModel request, string? returnUrl = null)
     {
         if (!ModelState.IsValid)
-            return View(requestModel);
+            return View(request);
 
-        var result = await signInManager.PasswordSignInAsync(requestModel.Email, requestModel.Password,
-            requestModel.RememberMe, false);
+        var result = await signInManager.PasswordSignInAsync(request.Email, request.Password,
+            request.RememberMe, false);
         if (result.Succeeded)
             return LocalRedirect(returnUrl ?? Url.Content("~/"));
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        return View(requestModel);
+        return View(request);
     }
 
     public async Task<IActionResult> Logout()
@@ -44,22 +47,22 @@ public class AccountController(SignInManager<IdentityUser> signInManager, UserMa
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterRequestModel model)
+    public async Task<IActionResult> Register(RegisterRequestModel request)
     {
         if (!ModelState.IsValid)
-            return View(model);
+            return View(request);
 
-        var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-        var result = await userManager.CreateAsync(user, model.Password);
+        var user = new IdentityUser { UserName = request.Email, Email = request.Email };
+        var result = await userManager.CreateAsync(user, request.Password);
         if (result.Succeeded)
         {
             await signInManager.SignInAsync(user, isPersistent: false);
-            return View(model);
+            return View(request);
         }
 
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
 
-        return View(model);
+        return View(request);
     }
 }

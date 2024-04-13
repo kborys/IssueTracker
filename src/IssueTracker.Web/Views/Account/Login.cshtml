@@ -3,7 +3,6 @@
   ViewData["Title"] = "Log in - IssueTracker";
 }
 
-
 <section class="relative top-1/2 -translate-y-1/2">
   <form id="account" method="post" class="max-w-2xl mx-auto p-5 md:border-2 md:rounded-xl md:shadow">
     @* Welcome Header *@
@@ -12,34 +11,30 @@
       <p>Log in!</p>
     </div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-
     @* Email *@
-    <div class="">
+    <div>
       <label asp-for="@Model.Email"></label>
-      <input asp-for="@Model.Email" class=""/>
-      <span asp-validation-for="@Model.Email" class=""></span>
+      <input asp-for="@Model.Email"/>
+      <span asp-validation-for="@Model.Email"></span>
     </div>
 
     @* Password *@
-    <div class="">
+    <div>
       <label asp-for="@Model.Password"></label>
-      <input asp-for="@Model.Password" class=""/>
-      <span asp-validation-for="@Model.Password" class=""></span>
+      <input asp-for="@Model.Password"/>
+      <span asp-validation-for="@Model.Password"></span>
     </div>
 
     @* Remember me *@
-    <div class="">
-      <div class="">
-        <label asp-for="@Model.RememberMe">
-          <input asp-for="@Model.RememberMe"/>
-          @Html.DisplayNameFor(m => m.RememberMe)
-        </label>
+    <div>
+      <div>
+        <label asp-for="@Model.RememberMe"></label>
+        <input asp-for="@Model.RememberMe"/>
       </div>
     </div>
 
     @* Log in *@
-    <div class="">
+    <div>
       <button type="submit">Log in</button>
     </div>
 

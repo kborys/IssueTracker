@@ -12,29 +12,28 @@
         <p>Create an account!</p>
       </div>
 
-      <div asp-validation-summary="All" class=""></div>
       @* Email *@
       <div class="form-group">
         <label asp-for="@Model.Email"></label>
-        <input asp-for="@Model.Email" class=""/>
-        <span asp-validation-for="@Model.Email" class=""></span>
+        <input asp-for="@Model.Email"/>
+        <span asp-validation-for="@Model.Email"></span>
       </div>
 
       @* Password *@
       <div class="form-group">
         <label asp-for="@Model.Password"></label>
-        <input asp-for="@Model.Password" class=""/>
-        <span asp-validation-for="@Model.Password" class=""></span>
+        <input asp-for="@Model.Password"/>
+        <span asp-validation-for="@Model.Password"></span>
       </div>
 
       @* Confirm Password *@
       <div class="form-group">
         <label asp-for="@Model.ConfirmPassword"></label>
-        <input asp-for="@Model.ConfirmPassword" class=""/>
-        <span asp-validation-for="@Model.ConfirmPassword" class="r"></span>
+        <input asp-for="@Model.ConfirmPassword"/>
+        <span asp-validation-for="@Model.ConfirmPassword"></span>
       </div>
 
-      <button type="submit" class="">Register</button>
+      <button type="submit">Register</button>
 
       <hr>
       <p>

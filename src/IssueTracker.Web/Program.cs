@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using IssueTracker.Web.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -5,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 // Identity
 builder.Services
@@ -42,8 +42,9 @@ builder.Services.AddMvc(opts =>
     opts.Filters.Add(new AuthorizeFilter(authPolicy));
 });
 
-
 builder.Services
+    .AddValidatorsFromAssembly(typeof(Program).Assembly)
+    .AddFluentValidationAutoValidation(opts => opts.DisableDataAnnotationsValidation = true)
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
