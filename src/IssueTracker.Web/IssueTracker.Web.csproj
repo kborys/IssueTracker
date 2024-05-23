@@ -8,19 +8,23 @@
 
     <ItemGroup>
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.3"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.5"/>
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5"/>
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Views\Account\Login.cshtml"/>
-        <AdditionalFiles Include="Views\Account\Register.cshtml"/>
+        <AdditionalFiles Include="Views\Accounts\Login.cshtml"/>
+        <AdditionalFiles Include="Views\Accounts\Register.cshtml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\IssueTracker.Core\IssueTracker.Core.csproj"/>
     </ItemGroup>
 
 </Project>

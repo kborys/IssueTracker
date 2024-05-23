@@ -33,13 +33,9 @@
           @if (SignInManager.IsSignedIn(User))
           {
             <li>
-              <div class="text-sm text-white flex flex-wrap">
-                <span class="self-center">Projects</span>
-                <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z"/>
-                  <polyline points="6 9 12 15 18 9"/>
-                </svg>
-              </div>
+              <a asp-controller="Projects" asp-action="Index" class="flex items-center space-x-3 text-sm text-white">
+                <span>Projects</span>
+              </a>
             </li>
           }
         </ul>
@@ -49,20 +45,20 @@
 
           @if (SignInManager.IsSignedIn(User))
           {
+            @* <li> *@
+            @*   <a asp-controller="Home" asp-action="Index" class="text-sm text-white">My account</a> *@
+            @* </li> *@
             <li>
-              <a asp-controller="Home" asp-action="Index" class="text-sm text-white">My account</a>
-            </li>
-            <li>
-              <a asp-controller="Account" asp-action="Logout" class="text-sm text-white">Logout</a>
+              <a asp-controller="Accounts" asp-action="Logout" class="text-sm text-white">Logout</a>
             </li>
           }
           else
           {
             <li>
-              <a asp-controller="Account" asp-action="Login" class="text-sm text-white">Login</a>
+              <a asp-controller="Accounts" asp-action="Login" class="text-sm text-white">Login</a>
             </li>
             <li>
-              <a asp-controller="Account" asp-action="Register" class="text-sm text-white">Register</a>
+              <a asp-controller="Accounts" asp-action="Register" class="text-sm text-white">Register</a>
             </li>
           }
         </ul>

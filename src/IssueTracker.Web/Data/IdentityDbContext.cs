@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IssueTracker.Web.Data;
 
-public class ApplicationDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+public class IdentityDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
         : base(options)
     {
     }

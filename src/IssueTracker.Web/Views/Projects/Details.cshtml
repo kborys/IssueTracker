@@ -1,0 +1,24 @@
+﻿@model ProjectDetailsDto
+
+<div class="max-w-5xl ml-auto mr-auto">
+  <section id="project" class="border-b-2 border-gray-900 p-5 relative">
+    <h1 class="text-xl font-semibold">@Model.Name</h1>
+    <p>Created at: @Model.CreatedAt</p>
+    <p>Created by: @Model.CreatedBy</p>
+    <p>@Model.Description</p>
+
+    <form asp-action="Delete" method="post" class="absolute top-8 right-8 rounded-md border-2 border-red-600 p-2">
+      <input type="hidden" name="id" value="@Model.Id"/>
+      <button type="submit" class="text-red-600 uppercase font-semibold">Delete</button>
+    </form>
+  </section>
+
+  <section id="issues" class="p-5 grid grid-rows-1 gap-4">
+    @foreach (var issue in Model.Issues)
+    {
+      <div class="p-3 rounded-lg border-2 border-slate-500">
+        <h2>@issue.Name</h2>
+      </div>
+    }
+  </section>
+</div>

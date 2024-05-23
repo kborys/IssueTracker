@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IssueTracker.Web.Controllers;
 
 [AllowAnonymous]
-public class AccountController(
+public class AccountsController(
     SignInManager<IdentityUser> signInManager,
     UserManager<IdentityUser> userManager)
     : Controller

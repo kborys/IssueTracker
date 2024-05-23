@@ -1,5 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IssueTracker.Core;
+using IssueTracker.Infrastructure;
 using IssueTracker.Web.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,10 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Identity
 builder.Services
-    .AddDbContext<ApplicationDbContext>(opts =>
-    {
-        opts.UseSqlite(builder.Configuration.GetConnectionString("Default"));
-    })
+    .AddDbContext<IdentityDbContext>(opts => { opts.UseSqlite(builder.Configuration.GetConnectionString("Identity")); })
     .AddIdentity<IdentityUser, IdentityRole>(opts =>
     {
         opts.SignIn.RequireConfirmedAccount = false; // Allow user to login without email confirmation link
@@ -24,7 +23,7 @@ builder.Services
         opts.Password.RequiredLength = 6;
         opts.Password.RequiredUniqueChars = 1;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<IdentityDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -43,6 +42,8 @@ builder.Services.AddMvc(opts =>
 });
 
 builder.Services
+    .AddInfrastructure()
+    .AddCore()
     .AddValidatorsFromAssembly(typeof(Program).Assembly)
     .AddFluentValidationAutoValidation(opts => opts.DisableDataAnnotationsValidation = true)
     .AddControllersWithViews()

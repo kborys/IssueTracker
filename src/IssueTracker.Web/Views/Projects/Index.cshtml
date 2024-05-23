@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProjectDto>
+
+<div>
+  <p>Project Index page</p>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+    @foreach (var project in Model)
+    {
+      <tr>
+        <td>
+          <a asp-action="Details" asp-route-id="@project.Id">@project.Name</a>
+        </td>
+        <td>@project.Description</td>
+      </tr>
+    }
+  </table>
+
+  @* <a asp-controller="Projects" asp-action="Create" class="text-sm text-black">New</a> *@
+  @* *@
+  @* <form id="new-project" asp-action="Create" method="post" class="max-w-2xl mx-auto p-5 md:border-2 md:rounded-xl md:shadow"> *@
+  @*   <div> *@
+  @*     <label asp-for="@Model.Key"></label> *@
+  @*     <input asp-for="@Model.Key"/> *@
+  @*     <span asp-validation-for="@Model.Key"></span> *@
+  @*   </div> *@
+  @* *@
+  @*   <div> *@
+  @*     <label asp-for="@Model.Name"></label> *@
+  @*     <input asp-for="@Model.Name"/> *@
+  @*     <span asp-validation-for="@Model.Name"></span> *@
+  @*   </div> *@
+  @* *@
+  @*   <div> *@
+  @*     <label asp-for="@Model.Description"></label> *@
+  @*     <input asp-for="@Model.Description"/> *@
+  @*     <span asp-validation-for="@Model.Description"></span> *@
+  @*   </div> *@
+  @* *@
+  @*   <div> *@
+  @*     <button type="submit" class="text-black">Create</button> *@
+  @*   </div> *@
+  @* </form> *@
+</div>
