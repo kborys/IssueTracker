@@ -2,17 +2,18 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using IssueTracker.Core;
 using IssueTracker.Infrastructure;
+using IssueTracker.Infrastructure.Postgres;
+using IssueTracker.Web;
 using IssueTracker.Web.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Identity
 builder.Services
-    .AddDbContext<IdentityDbContext>(opts => { opts.UseSqlite(builder.Configuration.GetConnectionString("Identity")); })
+    .AddPostgres<IdentityDbContext>()
     .AddIdentity<IdentityUser, IdentityRole>(opts =>
     {
         opts.SignIn.RequireConfirmedAccount = false; // Allow user to login without email confirmation link
@@ -29,9 +30,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Logout";
-    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.LoginPath = "/Accounts/Login";
+    options.LogoutPath = "/Accounts/Logout";
     options.SlidingExpiration = true;
 });
 

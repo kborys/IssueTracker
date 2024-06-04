@@ -27,4 +27,14 @@
         <ProjectReference Include="..\IssueTracker.Core\IssueTracker.Core.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Update="appsettings.Development.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Dal\Migrations\"/>
+    </ItemGroup>
+
 </Project>

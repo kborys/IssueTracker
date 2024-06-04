@@ -1,8 +1,19 @@
 # IssueTracker
 
+## How to run
+
+1. Make sure docker engine is up
+2. Run docker compose
+
+```bash
+docker compose up
+```
+
+3. Run the IssueTracker.Web
+
 ## Development
 
-### Frontend Setup
+### Frontend setup
 
 ```bash
 npm install
@@ -10,16 +21,23 @@ npm install
 npx tailwindcss -i src/IssueTracker.Web/wwwroot/css/site.css -o src/IssueTracker.Web/wwwroot/css/site.min.css --watch
 ```
 
-### Backend Setup
+### Adding migrations
 
-```bash
-# Add ef migration
-dotnet ef migrations add MigrationName -p .\src\IssueTracker.Web\ -o Data\Migrations
-# Apply ef migration
-dotnet ef database update --project .\src\IssueTracker.Web\IssueTracker.Web.csproj
+```bash 
+cd src/<ProjectContaingTheDbContext>
+dotnet ef migrations add <MigrationName> --startup-project ..\IssueTracker.Web\ -o ./Dal/Migrations --context <DbContextName>
 ```
+
+### Applying migrations
+
+Migrations are applied automatically in IssueTracker.Web.Services.AppInitializer
 
 ## Technologies
 
-1. ASP.NET 8.0
-2. TailwindCSS
+1. ASP.NET MVC 8.0
+2. ASP.NET Core Identity
+3. EF Core
+4. PostgreSQL
+5. AutoMapper
+6. FluentValidation
+7. TailwindCSS
