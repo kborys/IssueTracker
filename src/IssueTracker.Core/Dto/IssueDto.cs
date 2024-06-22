@@ -1,3 +1,10 @@
-﻿namespace IssueTracker.Core.Dto;
+﻿using IssueTracker.Core.Entities;
 
-public record IssueDto(Guid Id, string Name);
+namespace IssueTracker.Core.Dto;
+
+public class IssueDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public IssueType Type { get; set; }
+}

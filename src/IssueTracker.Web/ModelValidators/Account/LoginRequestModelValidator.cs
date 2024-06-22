@@ -3,18 +3,18 @@ using IssueTracker.Web.Models.Account;
 
 namespace IssueTracker.Web.ModelValidators.Account;
 
-public class LoginRequestModelValidator : AbstractValidator<LoginRequestModel>
+public class LoginRequestModelValidator : AbstractValidator<LoginViewModel>
 {
     public LoginRequestModelValidator()
     {
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Password is required");
+            .WithMessage("Hasło jest wymagane!");
 
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("Email is required")
+            .WithMessage("Email jest wymagany!")
             .EmailAddress()
-            .WithMessage("Email is not a valid email address");
+            .WithMessage("Email nie jest poprawny!");
     }
 }

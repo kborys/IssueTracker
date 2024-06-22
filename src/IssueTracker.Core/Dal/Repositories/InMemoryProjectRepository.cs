@@ -1,5 +1,4 @@
 ﻿using IssueTracker.Core.Entities;
-using IssueTracker.Core.Exceptions;
 
 namespace IssueTracker.Core.Dal.Repositories;
 
@@ -13,7 +12,7 @@ internal class InMemoryProjectRepository : IProjectRepository
             CreatedBy = new User
             {
                 Id = Guid.NewGuid(),
-                UserName = "John Doe"
+                Email = "John Doe"
             },
             Name = "Mock It",
             Description = "Some test project description just to mock it",
@@ -28,7 +27,7 @@ internal class InMemoryProjectRepository : IProjectRepository
                     CreatedBy = new User
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "John Doe"
+                        Email = "John Doe"
                     }
                 },
                 new Issue
@@ -41,9 +40,33 @@ internal class InMemoryProjectRepository : IProjectRepository
                     CreatedBy = new User
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "John Doe"
+                        Email = "John Doe"
                     }
-                }
+                },
+                new Issue
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Issue 1",
+                    Description = "Description for issue 1",
+                    Type = IssueType.UserStory,
+                    CreatedBy = new User
+                    {
+                        Id = Guid.NewGuid(),
+                        Email = "John Doe"
+                    }
+                },
+                new Issue
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Issue 2",
+                    Description = "Description for issue 2",
+                    Type = IssueType.UserStory,
+                    CreatedBy = new User
+                    {
+                        Id = Guid.NewGuid(),
+                        Email = "John Doe"
+                    }
+                },
             ]
         },
         new Project
@@ -52,7 +75,7 @@ internal class InMemoryProjectRepository : IProjectRepository
             CreatedBy = new User
             {
                 Id = Guid.NewGuid(),
-                UserName = "Ann Doe"
+                Email = "Ann Doe"
             },
             Name = "Test It",
             Description = "The project is about testing the application"

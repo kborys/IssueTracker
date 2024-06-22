@@ -3,28 +3,45 @@ using IssueTracker.Web.Models.Account;
 
 namespace IssueTracker.Web.ModelValidators.Account;
 
-public class RegisterRequestModelValidator : AbstractValidator<RegisterRequestModel>
+public class RegisterRequestModelValidator : AbstractValidator<RegisterViewModel>
 {
     public RegisterRequestModelValidator()
     {
+        RuleFor(x => x.FirstName)
+            .NotEmpty()
+            .WithMessage("Imię jest wymagane!")
+            .MaximumLength(50)
+            .WithMessage("Imię nie może być dłuższe 50 100 znaków!");
+
+        RuleFor(x => x.LastName)
+            .NotEmpty()
+            .WithMessage("Nazwisko jest wymagane!")
+            .MaximumLength(50)
+            .WithMessage("Nazwisko nie może być dłuższe niż 50 znaków!");
+
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Password is required")
+            .WithMessage("Hasło jest wymagane!")
             .MinimumLength(8)
-            .WithMessage("Password must be at least 8 characters long")
+            .WithMessage("Hasło musi składać się z co najmniej 8 znaków!")
             .MaximumLength(100)
-            .WithMessage("Password must be at most 100 characters long");
+            .WithMessage("Hasło nie może być dłuższe niż 100 znaków!");
 
         RuleFor(x => x.ConfirmPassword)
             .NotEmpty()
-            .WithMessage("Password confirmation is required")
+            .WithMessage("Potwierdzenie hasła jest wymagane!")
             .Must((model, confirmPassword) => confirmPassword == model.Password)
-            .WithMessage("Passwords do not match");
+            .WithMessage("Hasła różnią się!");
 
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("Email is required")
+            .WithMessage("Email jest wymagany!")
             .EmailAddress()
-            .WithMessage("Email is not a valid email address");
+            .WithMessage("Email nie jest poprawny!");
+
+        RuleFor(x => x.AvatarUrl)
+            .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out _))
+            .When(x => !string.IsNullOrWhiteSpace(x.AvatarUrl))
+            .WithMessage("Niepoprawny link do avatara. Spróbuj ponownie lub pozostaw puste!");
     }
 }

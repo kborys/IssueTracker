@@ -13,6 +13,7 @@ public static class Extensions
             .AddSingleton<IClock, UtcClock>()
             .AddHostedService<AppInitializer>();
 
+
     public static T GetOptions<T>(this IServiceCollection services, string sectionName) where T : new()
     {
         using var serviceProvider = services.BuildServiceProvider();

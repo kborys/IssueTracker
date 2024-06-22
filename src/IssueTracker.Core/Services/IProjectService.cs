@@ -4,9 +4,9 @@ namespace IssueTracker.Core.Services;
 
 public interface IProjectService
 {
-    Task AddAsync(ProjectDetailsDto dto);
+    Task AddAsync(ProjectDto dto);
     Task<ProjectDetailsDto> GetAsync(Guid id);
     Task<IReadOnlyList<ProjectDto>> BrowseAsync();
-    Task UpdateAsync(ProjectDetailsDto dto);
+    Task UpdateAsync(ProjectDto dto);
     Task DeleteAsync(Guid id);
 }

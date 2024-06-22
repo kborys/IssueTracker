@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace IssueTracker.Core.Entities;
 
-internal enum IssuePriority
+public enum IssuePriority
 {
-    Unassigned = -1,
-    Low,
-    Medium,
-    High
+    [Display(Name = "Brak")] None,
+    [Display(Name = "Niski")] Low,
+    [Display(Name = "Średni")] Medium,
+    [Display(Name = "Wysoki")] High
 }

@@ -1,9 +1,11 @@
-﻿namespace IssueTracker.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-internal enum IssueStatus
+namespace IssueTracker.Core.Entities;
+
+public enum IssueStatus
 {
-    Rejected = -1,
-    New = 0,
-    InProgress,
-    Completed
+    [Display(Name = "Odrzucone")] Rejected = -1,
+    [Display(Name = "Nowe")] New = 0,
+    [Display(Name = "W toku")] InProgress,
+    [Display(Name = "Gotowe")] Completed
 }

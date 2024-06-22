@@ -6,13 +6,13 @@ internal class Issue : AuditableEntity
     public Project Project { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public IssueType Type { get; set; } = IssueType.Undefined;
+    public IssueType Type { get; set; } = IssueType.None;
     public IssueStatus Status { get; set; } = IssueStatus.New;
-    public IssuePriority Priority { get; set; } = IssuePriority.Unassigned;
+    public IssuePriority Priority { get; set; } = IssuePriority.None;
+    public Guid? AssignedToId { get; set; }
     public User? AssignedTo { get; set; }
-    public IEnumerable<Issue> SubIssues { get; set; } = Enumerable.Empty<Issue>();
-    public IEnumerable<IssueComment> Comments { get; set; } = Enumerable.Empty<IssueComment>();
+    public IReadOnlyList<Issue> SubIssues { get; set; } = new List<Issue>();
+    public IReadOnlyList<IssueComment> Comments { get; set; } = new List<IssueComment>();
 
     // todo borysk - keep history of changes
-    // todo borysk - issue content - design, desc etc
 }

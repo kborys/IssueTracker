@@ -1,3 +1,4 @@
+using System.Security.Policy;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using IssueTracker.Core;
@@ -44,6 +45,7 @@ builder.Services.AddMvc(opts =>
 builder.Services
     .AddInfrastructure()
     .AddCore()
+    .AddAutoMapper(typeof(WebProfile))
     .AddValidatorsFromAssembly(typeof(Program).Assembly)
     .AddFluentValidationAutoValidation(opts => opts.DisableDataAnnotationsValidation = true)
     .AddControllersWithViews()
@@ -58,6 +60,13 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+        context.Response.Redirect("/Home");
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

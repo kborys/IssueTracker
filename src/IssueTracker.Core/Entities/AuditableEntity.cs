@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-
-namespace IssueTracker.Core.Entities;
+﻿namespace IssueTracker.Core.Entities;
 
 internal class AuditableEntity : AuditableEntity<Guid>
 {
@@ -8,7 +6,8 @@ internal class AuditableEntity : AuditableEntity<Guid>
 
 internal class AuditableEntity<T>
 {
-    public required T Id { get; init; }
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
-    public required User CreatedBy { get; init; }
+    public T Id { get; init; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public User CreatedBy { get; set; }
+    public Guid CreatedById { get; set; }
 }

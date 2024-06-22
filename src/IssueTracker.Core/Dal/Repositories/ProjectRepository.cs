@@ -1,36 +1,37 @@
 ﻿using IssueTracker.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace IssueTracker.Core.Dal.Repositories;
 
-internal class ProjectRepository : IProjectRepository
+internal class ProjectRepository(CoreDbContext dbContext) : IProjectRepository
 {
-    public Task<Project> GetAsync(Guid id)
+    public async Task<Project?> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var x = await dbContext.Projects.Include(x => x.Issues)
+            .SingleOrDefaultAsync(x => x.Id == id);
+        return x;
     }
 
-    public Task<IReadOnlyList<Project>> BrowseAsync()
+    public async Task<IReadOnlyList<Project>> BrowseAsync()
+        => await dbContext.Projects.Include(x => x.CreatedBy).ToListAsync();
+
+    public async Task AddAsync(Project project)
     {
-        throw new NotImplementedException();
+        await dbContext.Projects.AddAsync(project);
+        await dbContext.SaveChangesAsync();
     }
 
-    public Task AddAsync(Project project)
+    public async Task UpdateAsync(Project project)
     {
-        throw new NotImplementedException();
+        dbContext.Projects.Update(project);
+        await dbContext.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(Project project)
+    public async Task DeleteAsync(Project project)
     {
-        throw new NotImplementedException();
+        dbContext.Projects.Remove(project);
+        await dbContext.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(Project project)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> ExistsAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<bool> ExistsAsync(Guid id) => dbContext.Projects.AnyAsync(x => x.Id == id);
 }

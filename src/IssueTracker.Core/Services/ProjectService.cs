@@ -8,11 +8,9 @@ namespace IssueTracker.Core.Services;
 
 internal class ProjectService(IProjectRepository repository, IMapper mapper) : IProjectService
 {
-    public async Task AddAsync(ProjectDetailsDto dto)
+    public async Task AddAsync(ProjectDto dto)
     {
-        if (await repository.ExistsAsync(dto.Id))
-            throw new ProjectAlreadyExistsException(dto.Id);
-
+        dto.Id = Guid.NewGuid();
         var project = mapper.Map<Project>(dto);
         await repository.AddAsync(project);
     }
@@ -32,12 +30,12 @@ internal class ProjectService(IProjectRepository repository, IMapper mapper) : I
         return dto;
     }
 
-    public async Task UpdateAsync(ProjectDetailsDto dto)
+    public async Task UpdateAsync(ProjectDto dto)
     {
-        if (await repository.ExistsAsync(dto.Id))
-            throw new ProjectAlreadyExistsException(dto.Id);
-
-        var project = mapper.Map<Project>(dto);
+        var project = await repository.GetAsync(dto.Id)
+                      ?? throw new ProjectNotFoundException(dto.Id);
+        project.Name = dto.Name;
+        project.Description = dto.Description;
         await repository.UpdateAsync(project);
     }
 
