@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjectDto>
+
+@if (Model.Any())
+{
+  <div class="group relative">
+    <button class="text-base pl-2 py-1 font-medium rounded-md hover:bg-slate-200 flex flex-row">
+      <span>Projekty</span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#334155">
+          <path d="M480-360 280-560h400L480-360Z"/>
+        </svg>
+      </span>
+    </button>
+    <nav class="rounded border border-slate-200 bg-white shadow-xl absolute left-0 top-full translate-y-1 whitespace-nowrap z-10 hidden group-focus-within:block">
+      <ol class="text-sm text-slate-700 py-2">
+        @foreach (var project in Model)
+        {
+          <li>
+            <a asp-action="Issues" asp-controller="Projects" asp-route-id="@project.Id" class="px-4 py-2 hover:bg-slate-200 block">
+              @project.Name
+            </a>
+          </li>
+        }
+      </ol>
+      <div class="border-t-2 text-sm py-2 box-border">
+        <li>
+          <a asp-action="List" asp-controller="Projects" class="px-4 py-2 hover:bg-slate-200 block">
+            Wyświetl wszystkie projekty
+          </a>
+        </li>
+        <li>
+          <a asp-action="Create" asp-controller="Projects" class="px-4 py-2 hover:bg-slate-200 block">
+            Utwórz projekt
+          </a>
+        </li>
+      </div>
+    </nav>
+  </div>
+}

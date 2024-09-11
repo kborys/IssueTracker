@@ -1,0 +1,35 @@
+﻿@model IssueTracker.Web.Models.Project.EditProjectViewModel
+
+<section class="relative top-1/2 -translate-y-1/2 max-w-lg mx-auto">
+  <form id="edit-issue" method="post" class="grid grid-rows-1 gap-1 text-slate-700 text-sm">
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.Name"></label>
+      <input asp-for="@Model.Name" value="@Model.Name" class="bg-slate-50 border border-slate-300 rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.Name" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.Description"></label>
+      <textarea asp-for="@Model.Description"  class="bg-slate-50 border border-slate-300 rounded-lg p-2.5">
+        @Model.Description
+      </textarea>
+      <span asp-validation-for="@Model.Description" class="text-red-500"></span>
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-base p-3 mt-2">
+      Aktualizuj
+    </button>
+  </form>
+</section>
+
+@section Scripts
+{
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach(textarea => {
+        textarea.style.height = `${textarea.scrollHeight + 10}px`;
+      });
+    });
+  </script>
+}

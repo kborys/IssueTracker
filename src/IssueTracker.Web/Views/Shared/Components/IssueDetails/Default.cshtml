@@ -1,0 +1,84 @@
+﻿@using IssueTracker.Web.Helpers
+@model IssueTracker.Web.Models.Project.IssueDetailsViewModel
+
+<section id="issue" class="col-span-7 flex flex-col">
+  <div id="issue-base" class="p-5">
+    <div class="m-2">
+      <h1 class="text-2xl font-medium">
+        @Model.Name
+      </h1>
+      @* <button class="text-red-500 hover:text-red-700" onclick="deleteIssue(@Model.Id)"> *@
+      @*   Usuń zgłoszenie *@
+      @* </button> *@
+    </div>
+    <div>
+      <h2 class="ml-2 font-medium">Opis</h2>
+      <div class="hover:bg-slate-100 p-2">
+        <p>@(Model.Description == string.Empty ? "Edytuj opis" : Model.Description)</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="issue-comments" class="flex-grow px-7 py-2">
+    <h2 class="font-medium">@Html.DisplayNameFor(x => x.Comments)</h2>
+
+    <ol>
+      @foreach (var comment in Model.Comments)
+      {
+        <li class="flex flex-row">
+          <div class="p-2">@Html.UserAvatar(Model.CreatedByName, Model.CreatedByAvatarUrl, 25)</div>
+          <div class="flex flex-col p-2">
+            <div class="flex flex-row">
+              <a href="#">@comment.CreatedByName</a>
+              <p>
+                @comment.CreatedAt.ToShortTimeString() @comment.CreatedAt.ToShortDateString()
+              </p>
+            </div>
+            <div>
+              <p></p>
+            </div>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+
+</section>
+<section id="issue-details" class="col-span-3">
+  <div class="grid grid-cols-2 border rounded-md border-slate-200 text-sm">
+    <div class="col-span-2 border-b border-slate-200">
+      <h2 class="font-medium p-2 text-base">Szczegóły</h2>
+    </div>
+    <div class="p-2 font-medium">
+      <p class="p-1">@Html.DisplayNameFor(x => x.Status)</p>
+      <p class="p-1">@Html.DisplayNameFor(x => x.Priority)</p>
+      <p class="p-1">@Html.DisplayNameFor(x => x.AssignedToName)</p>
+      <p class="p-1">Zaktualizowano</p>
+      <p class="p-1">@Html.DisplayNameFor(x => x.CreatedByName)</p>
+      <p class="p-1">Utworzono</p>
+    </div>
+    <div class="p-2">
+      <p class="p-1">@Html.DisplayFor(x => x.Status)</p>
+      <p class="p-1">@Html.DisplayFor(x => x.Priority)</p>
+      <div class="p-1 flex flex-row space-x-2">
+        @Html.UserAvatar(Model.AssignedToName, Model.AssignedToAvatarUrl, 25)
+        <span>Brak</span>
+      </div>
+      <p class="p-1">@DateTime.Now.ToShortDateString() @DateTime.Now.ToShortTimeString()</p>
+      <div class="p-1 flex flex-row space-x-2">
+        @Html.UserAvatar(Model.CreatedByName, Model.CreatedByAvatarUrl, 25)
+        <span>@Html.DisplayFor(x => x.CreatedByName)</span>
+      </div>
+      <p class="p-1">@DateTime.Now.ToShortDateString() @DateTime.Now.ToShortTimeString()</p>
+    </div>
+  </div>
+</section>
+
+@section Scripts {
+  <script>
+    function deleteIssue(event, issueId) {
+      event.preventDefault()
+      fetch(`/Issues/${issueId}/Delete`, { method: 'POST' }).then(response => { window.location.reload(); });
+    }
+  </script>
+}

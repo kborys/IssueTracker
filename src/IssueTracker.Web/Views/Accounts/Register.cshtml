@@ -1,0 +1,53 @@
+﻿@model RegisterViewModel
+
+<section class="relative top-1/2 -translate-y-1/2 max-w-lg mx-auto">
+  <form id="register" method="post" class="grid grid-rows-1 gap-1 text-slate-700 text-sm">
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.FirstName"></label>
+      <input asp-for="@Model.FirstName" class="bg-slate-50 border border-slate-300 text-sm rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.FirstName" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.LastName"></label>
+      <input asp-for="@Model.LastName" class="bg-slate-50 border border-slate-300 text-sm rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.LastName" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.Email"></label>
+      <input asp-for="@Model.Email" class="bg-slate-50 border border-slate-300 text-sm rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.Email" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.Password"></label>
+      <input asp-for="@Model.Password" type="password" class="bg-slate-50 border border-slate-300 rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.Password" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.ConfirmPassword"></label>
+      <input asp-for="@Model.ConfirmPassword" type="password" class="bg-slate-50 border border-slate-300 rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.ConfirmPassword" class="text-red-500"></span>
+    </div>
+
+    <div class="grid grid-rows-1 gap-1">
+      <label asp-for="@Model.AvatarUrl"></label>
+      <input asp-for="@Model.AvatarUrl" class="bg-slate-50 border border-slate-300 text-sm rounded-lg p-2.5"/>
+      <span asp-validation-for="@Model.AvatarUrl" class="text-red-500"></span>
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-base p-3 mt-2">
+      Zarejestruj się
+    </button>
+  </form>
+
+  <hr class="mt-3 h-px bg-slate-400">
+  <footer class="mt-2">
+    <p>
+      Masz już konto?
+      <a asp-action="Login" class="font-medium text-blue-500 hover:underline">Zaloguj się!</a>
+    </p>
+  </footer>
+</section>

@@ -280,9 +280,7 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
-# ASP.NET Core Identity
-wwwroot/
-**/wwwroot
+**/wwwroot/lib
 
 # Rider
 .idea/
@@ -313,3 +311,8 @@ wwwroot/
 *.rej
 *~
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,rider
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal

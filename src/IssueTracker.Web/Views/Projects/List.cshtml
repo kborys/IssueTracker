@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProjectDto>
+
+<div class="h-full flex flex-col">
+  <header>
+    <h1 class="my-2 text-2xl font-medium">Projekty</h1>
+  </header>
+
+
+  <article id="projects">
+    <table class="w-full text-sm text-left text-slate-500">
+      <thead class="text-sm text-slate-700 capitalize border-b-4">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th scope="col" class="px-6 py-3">
+          @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th scope="col" class="px-6 py-3">
+          @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th scope="col" class="px-6 py-3">
+
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var project in Model)
+      {
+        <tr class="bg-white border-b">
+          <th scope="row" class="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">
+            <a asp-action="Issues" asp-route-id="@project.Id" class="hover:text-blue-600">@project.Name</a>
+          </th>
+          <td class="px-6 py-4">
+            @project.Description
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap inline-flex items-center">
+            <span class="w-8 h-8">
+              @if (project.CreatedBy.AvatarUrl != null)
+              {
+                <img src="@project.CreatedBy.AvatarUrl" alt="avatar" class="rounded-full"/>
+              }
+              else
+              {
+                <div class="w-8 h-8 rounded-full bg-red-200">
+                  @project.CreatedBy.FirstName[0]@project.CreatedBy.LastName[0]
+                </div>
+              }
+            </span>
+            <span class="ml-2">
+              @project.CreatedBy.FirstName @project.CreatedBy.LastName
+            </span>
+          </td>
+          <td class="items-center p-2">
+            <div id="options-menu-@project.Id" onclick="toggleDropdown('@project.Id')" class="cursor-pointer border border-transparent p-2 hover:rounded-full hover:bg-slate-200 dropdown-toggler">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#334155">
+                <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/>
+              </svg>
+            </div>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </article>
+</div>
+
+@Html.Hidden("RedirectTo", Url.Action("List")))
+
+@section Scripts {
+  <script>
+    
+    function toggleDropdown(projectId) {
+    let dropdownId = `dropdown-${projectId}`;
+    let dropdown = document.getElementById(dropdownId);
+    if (dropdown){
+      dropdown.remove();
+      return;
+    }
+
+    // Create dropdown
+    dropdown = document.createElement('div');
+    dropdown.id = dropdownId;
+    dropdown.className = 'origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5';
+    dropdown.innerHTML = `
+      <div id="options-menu-${projectId}" class="py-1">
+        <a href="/Projects/${projectId}/Edit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Edytuj</a>
+        <a href="#" onclick="deleteProject(event, '${projectId}')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Usuń</a>
+      </div>
+    `;
+    document.body.appendChild(dropdown);
+
+    // Position the dropdown
+    let clickedOptionsMenu = document.getElementById(`options-menu-${projectId}`);
+    let rect = clickedOptionsMenu.getBoundingClientRect();
+    dropdown.style.position = 'absolute';
+    dropdown.style.top = `${rect.bottom + window.scrollY}px`;
+    }
+
+    // Close the dropdown when clicking outside of it
+    window.onclick = function(event) {
+      const toggler = event.target.closest('.dropdown-toggler');
+      if (!toggler) {
+        document.querySelectorAll('[id^="dropdown-"]').forEach(x => x.remove());
+      }
+
+      const dropdownId = toggler.id.replace('options-menu-', 'dropdown-');
+      let existingDropdowns = document.querySelectorAll('[id^="dropdown-"]');
+      existingDropdowns.forEach(x => {
+        if (x.id !== dropdownId) {
+          x.remove();
+        }
+      });
+    }
+
+    function deleteProject(event, projectId) {
+      event.preventDefault()
+      fetch(`/Projects/${projectId}/Delete`, { method: 'POST' }).then(response => { window.location.reload(); });
+    }
+  </script>
+}
